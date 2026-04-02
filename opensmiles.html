@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 9.1.1" />
+<meta name="generator" content="AsciiDoc 10.2.1" />
 <title>OpenSMILES specification</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -1459,6 +1459,8 @@ later sections.</p></div>
 <h3 id="_branches">3.3. Branches</h3>
 <div class="paragraph"><p>An atom with three or more bonds is called a <strong>branched atom</strong>, and is
 represented using parentheses.</p></div>
+<div class="paragraph"><p>To maintain a valid structure, any nested branch (a branch within another branch) must be preceded by a valid atom, meaning that you cannot start a nested branch until there is a clearly defined atom in the parent branch.</p></div>
+<div class="paragraph"><p>For example, <code>C(C(C))</code> is valid, as each branch has an atom before moving to a nested branch. However, <code>C((C)C)</code> is not valid, because the nested branch starts without a proper atom preceding it.</p></div>
 <div class="tableblock">
 <table rules="rows"
 width="90%"
@@ -4496,7 +4498,7 @@ cellspacing="0" cellpadding="4">
 <div id="footer-text">
 Version 1.0<br />
 Last updated
- 2021-09-21 11:09:36 BST
+ 2026-04-02 09:14:17 BST
 </div>
 </div>
 </body>
