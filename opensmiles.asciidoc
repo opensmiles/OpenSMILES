@@ -416,6 +416,10 @@ Branches
 An atom with three or more bonds is called a *branched atom*, and is
 represented using parentheses.
 
+To maintain a valid structure, any nested branch (a branch within another branch) must be preceded by a valid atom, meaning that you cannot start a nested branch until there is a clearly defined atom in the parent branch.
+
+For example, `C(C(C))` is valid, as each branch has an atom before moving to a nested branch. However, `C((C)C)` is not valid, because the nested branch starts without a proper atom preceding it.
+
 [options="header",frame="topbot",grid="rows",width="90%"]
 |============================================================================
 | Depiction                                 | SMILES      | Name
