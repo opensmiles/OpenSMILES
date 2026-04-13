@@ -4,7 +4,7 @@ html: opensmiles.asciidoc
 	asciidoc -n -b xhtml11 opensmiles.asciidoc
 
 pdf: opensmiles.asciidoc
-	a2x opensmiles.asciidoc
+	a2x --fop opensmiles.asciidoc
 
 website: html pdf
 	rm -rf html
