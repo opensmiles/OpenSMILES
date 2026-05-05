@@ -12,7 +12,7 @@ Content is available under http://www.gnu.org/copyleft/fdl.html[GNU Free Documen
 Source for this document: https://github.com/opensmiles/OpenSMILES
 
 Contributors: Richard Apodaca, Noel O'Boyle, Andrew Dalke, John van Drie, Peter Ertl,
-Geoff Hutchison, Craig A. James, Greg Landrum, Chris Morley, Egon Willighagen, Hans De Winter, Tim Vandermeersch, John May
+Geoff Hutchison, Craig A. James, Greg Landrum, Chris Morley, Egon Willighagen, Hans De Winter, Tim Vandermeersch, John Mayfield
 
 Introduction
 ------------
@@ -465,7 +465,7 @@ forms a cyclic structure.
 
 If a bond symbol is present between the atom and rnum, it can be
 present on *either or both* bonded atoms.  However, if it appears on
-both bonded atoms, the two bond symbols must be the same.
+both bonded atoms, the two bond types must be the same.
 
 [options="header",frame="topbot",grid="rows",width="90%"]
 |=================================================================================================
@@ -474,6 +474,32 @@ both bonded atoms, the two bond symbols must be the same.
 |                                                 `C=1CCCCC1`     | cyclohexene *(preferred form)*
 |                                                 `C1CCCCC=1`     | cyclohexene
 |                                                 `C-1CCCCC=1`    | *invalid*
+|=================================================================================================
+
+Directional up/down bonds that are used to specify double bond configuration are 
+relative to the atoms they connect. On ring closures this means for bonds to be
+the same type the the symbol inverts (`'/' => '\'` and `'\' => '/'`). If the 
+symbols are the same the interpretation is implementation dependant. Some 
+parsers will choose to ignore either the ring open or ring close, ideally such 
+structures should be returned with undefined configuration and a warning issued. 
+Alternatively the SMILES may be rejected.
+
+For this reason it is preferred to only specify the bond type on either the open
+or the close. Unfortunately this can lead to issues when generating SMILES where
+a double bond is accidentality set as unspecified due to the specification of
+adjacent double bonds. 
+
+[options="header",frame="topbot",grid="rows",width="90%"]
+|=================================================================================================
+| SMILES                  | Name
+| `C/1CCCCCCCCC/C=C\1`    | Z-cyclododecanene
+| `C/1CCCCCCCCC/C=C1`     | Z-cyclododecanene
+| `C1CCCCCCCCC/C=C\1`     | Z-cyclododecanene
+| `C\1CCCCCCCCC/C=C/1`    | E-cyclododecanene
+| `C\1CCCCCCCCC/C=C1`     | E-cyclododecanene
+| `C1CCCCCCCCC/C=C/1`     | E-cyclododecanene
+| `C\1CCCCCCCCC/C=C\1`    | cyclododecanene *undefined configuration*
+| `C/1CCCCCCCCC/C=C/1`    | cyclododecanene *undefined configuration*
 |=================================================================================================
 
 Ring closures must be matched pairs in a SMILES string, for example, `C1CCC`
